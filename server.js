@@ -26,3 +26,6 @@ mongoose
     });
   })
   .catch((err) => console.log("❌ DB Error:", err));
+  // Routes
+const authRoutes = require("./src/routes/authRoutes");
+app.use("/api/auth", authRoutes);
