@@ -20,6 +20,10 @@ app.get("/", (req, res) => {
 const authRoutes = require("./src/routes/authRoutes");
 app.use("/api/auth", authRoutes);
 
+// ✅ ADD THESE TWO LINES RIGHT HERE
+const chatRoutes = require("./src/routes/chatRoutes");
+app.use("/api/chat", chatRoutes);
+
 // Database Connection
 mongoose
   .connect(process.env.MONGO_URI)
@@ -30,4 +34,3 @@ mongoose
     });
   })
   .catch((err) => console.log("❌ DB Error:", err));
-
