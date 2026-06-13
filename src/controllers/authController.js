@@ -1,6 +1,7 @@
 const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const { validationResult } = require("express-validator");
 
 // Generate JWT Token
 const generateToken = (id) => {
@@ -13,6 +14,16 @@ const generateToken = (id) => {
 // @route   POST /api/auth/register
 exports.register = async (req, res, next) => {
   try {
+    // express-validator result (populated by validation middleware)
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({
+        success: false,
+        message: "Validation failed",
+        errors: errors.array().map((e) => ({ path: e.path, msg: e.msg })),
+      });
+    }
+
     const { name, email, password } = req.body;
 
     // Check if user already exists
@@ -35,7 +46,7 @@ exports.register = async (req, res, next) => {
       password: hashedPassword,
     });
 
-    res.status(201).json({
+    return res.status(201).json({
       success: true,
       message: "User registered successfully",
       token: generateToken(user._id),
@@ -47,7 +58,7 @@ exports.register = async (req, res, next) => {
       },
     });
   } catch (err) {
-    next(err);
+    return next(err);
   }
 };
 
@@ -55,6 +66,15 @@ exports.register = async (req, res, next) => {
 // @route   POST /api/auth/login
 exports.login = async (req, res, next) => {
   try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({
+        success: false,
+        message: "Validation failed",
+        errors: errors.array().map((e) => ({ path: e.path, msg: e.msg })),
+      });
+    }
+
     const { email, password } = req.body;
 
     // Check if user exists
@@ -75,7 +95,7 @@ exports.login = async (req, res, next) => {
       });
     }
 
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
       message: "Login successful",
       token: generateToken(user._id),
@@ -87,6 +107,6 @@ exports.login = async (req, res, next) => {
       },
     });
   } catch (err) {
-    next(err);
+    return next(err);
   }
 };
