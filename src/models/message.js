@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 
-// Message schema represents one chat message persisted in MongoDB.
-// Fields:
+
 // - userId: who sent the message (required)
 // - role: "user" or "assistant" (required)
 // - content: message text (required)
