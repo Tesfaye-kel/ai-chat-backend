@@ -13,8 +13,7 @@ const generateToken = (id) => {
 // @desc    Register User
 // @route   POST /api/auth/register
 exports.register = async (req, res, next) => {
-  try {
-    // express-validator result (populated by validation middleware)
+  try 
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({
