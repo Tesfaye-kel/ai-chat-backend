@@ -1,13 +1,4 @@
-/**
- * Chat Routes
- *
- * Defines all API endpoints for the chat system.
- * All routes are protected by JWT middleware.
- *
- * POST   /api/chat/send      → Send message + get AI response
- * GET    /api/chat/history   → Get conversation history
- * DELETE /api/chat/history   → Clear chat history
- */
+
 
 const express = require("express");
 const router = express.Router();
