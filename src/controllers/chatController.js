@@ -32,7 +32,7 @@ exports.sendMessage = async (req, res, next) => {
     // 5. Format history for AI
     const aiMessages = history.map((msg) => ({
       role: msg.role,
-      content: msg.content,
+       content: msg.content,
     }));
 
     // 6. Send to Anthropic AI and get response
